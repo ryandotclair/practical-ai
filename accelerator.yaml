@@ -23,15 +23,15 @@ accelerator:
     dataType: [string]
     choices:
       - text: I'm new to Azure, explain the main constructs
-        value: 1
+        value: azure
       - text: How to deploy Azure Spring Apps Enterprise
-        value: 2
+        value: asae
       - text: How to deploy Azure Cosmos DB
-        value: 3
+        value: cosmos
       - text: How to deploy Azure OpenAI
-        value: 4
+        value: openai
       - text: How to deploy Azure Speech to Text
-        value: 5
+        value: speech
     display: true
 
 engine:
