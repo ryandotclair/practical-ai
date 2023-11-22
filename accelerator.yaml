@@ -35,10 +35,10 @@ accelerator:
 
 engine:
   merge:
-  - include: ['*/*']
-  condition: "#helper == true"
-  chain:
-  - type: ReplaceText
-  substitutions:
-  - text: "[AZURE]"
-  with: "#checkbox"
+    - include: ['**/*']
+    - include: ['**/*.md']
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: "[AZURE]"
+          with: "#checkbox"
