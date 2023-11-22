@@ -19,7 +19,7 @@ accelerator:
     label: "Let's Customize this guide to your experience! Select which instructions you need."
     dependsOn:
       name: helper
-    inputType: select
+    inputType: checkbox
     choices:
       - text: "I'm new to Azure, explain the main constructs"
         value: "1"
