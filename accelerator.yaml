@@ -22,7 +22,7 @@ accelerator:
     inputType: checkbox
     dataType: [string]
     choices:
-      - text: I'm new to Azure, explain the main constructs
+      - text: I'm new to Azure, explain the main constructs!
         value: azure
       - text: How to deploy Azure Spring Apps Enterprise
         value: asae
