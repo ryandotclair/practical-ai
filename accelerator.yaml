@@ -34,6 +34,7 @@ accelerator:
     display: true
 
 engine:
+  merge:
   - include: ['*/*']
   condition: "#helper == true"
   chain:
