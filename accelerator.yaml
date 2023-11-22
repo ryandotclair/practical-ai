@@ -15,7 +15,7 @@ accelerator:
     label: "I'm not an Azure expert"
     dataType: boolean
     defaultValue: true
-  - name: checkbox
+  - name: customize
     label: "Let's Customize this guide to your experience! Select which instructions you need."
     dependsOn:
       name: helper
@@ -24,7 +24,7 @@ accelerator:
     choices:
       - text: "I'm new to Azure, explain the main constructs"
         value: "azure"
-      - text: "How to deploy Azure Spring Apps Enterprise"
+      - text: "How to deploy Azure Spring Apps Enterprise!"
         value: "asae"
       - text: "How to deploy Azure Cosmos DB"
         value: "cosmos"
@@ -42,7 +42,7 @@ engine:
       - type: ReplaceText
         substitutions:
         - text: "[AZURE]"
-          with: "#checkbox"
+          with: "#customize"
       - type: ReplaceText
         substitutions:
         - text: "[NAME]"
