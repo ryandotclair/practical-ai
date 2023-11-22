@@ -1,0 +1,43 @@
+accelerator:
+  displayName: "Practical AI Guide"
+  description: "A practical guide for Spring Devs to start quickly in AI"
+  iconUrl: https://raw.githubusercontent.com/sample-accelerators/icons/master/icon-tanzu-light.png
+  tags:
+  - azure
+  - ai
+
+  options:
+  - name: name
+    label: "What is your name?"
+    display: true
+    required: true
+  - name: helper
+    label: "I'm not an Azure expert"
+    dataType: boolean
+    defaultValue: true
+  - name: checkbox
+    label: "Let's Customize this guide to your experience! Select which instructions you need."
+    dependsOn:
+      name: helper
+    inputType: select
+    choices:
+      - text: "I'm new to Azure, explain the main constructs"
+        value: "1"
+      - text: "How to deploy Azure Spring Apps Enterprise"
+        value: "2"
+      - text: "How to deploy Azure Cosmos DB"
+        value: "3"
+      - text: "How to deploy Azure OpenAI"
+        value: "4"
+      - text: "How to deploy Azure Speech to Text"
+        value: "5"
+    display: true
+
+engine:
+  - include: ['*/*']
+  condition: "#helper == true"
+  chain:
+  - type: ReplaceText
+  substitutions:
+  - text: "[AZURE]"
+  with: "#checkbox"
