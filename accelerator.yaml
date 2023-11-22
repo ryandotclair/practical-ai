@@ -42,3 +42,7 @@ engine:
         substitutions:
         - text: "[AZURE]"
           with: "#checkbox"
+      - type: ReplaceText
+        substitutions:
+        - text: "[NAME]"
+          with: "#name"
