@@ -36,14 +36,23 @@ accelerator:
 
 engine:
   merge:
-    - include: ['**/*']
-    - include: ['**/*.md']
-      chain:
-      - type: ReplaceText
-        substitutions:
-        - text: "[AZURE]"
-          with: "#customize"
-      - type: ReplaceText
-        substitutions:
-        - text: "[NAME]"
-          with: "#name"
+    - include: ['azure.md']
+      condition: "#customize == 'azure'"
+      - name: lab
+        type: Combo
+        onConflict: Append
+        sources:
+        - include: ["azure.md"]
+        chain:
+        - type: RewritePath
+          rewriteTo: "lab.md"
+    - include: ['asa-e.md']
+      condition: "#customize == 'asae'"
+      - name: lab
+        type: Combo
+        onConflict: Append
+        sources:
+        - include: ["asa-e.md"]
+        chain:
+        - type: RewritePath
+          rewriteTo: "lab.md"
