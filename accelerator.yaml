@@ -23,21 +23,21 @@ accelerator:
     dataType: [string]
     choices:
       - text: "I'm new to Azure, explain the main constructs"
-        value: "azure"
+        value: 1
       - text: "How to deploy Azure Spring Apps Enterprise!"
-        value: "asae"
+        value: 2
       - text: "How to deploy Azure Cosmos DB"
-        value: "cosmos"
+        value: 3
       - text: "How to deploy Azure OpenAI"
-        value: "openai"
+        value: 4
       - text: "How to deploy Azure Speech to Text"
-        value: "speech"
+        value: 5
     display: true
 
 engine:
   merge:
     - include: ['azure.md']
-      condition: "#customize == 'azure'"
+      condition: "#customize == 1"
       - name: lab
         type: Combo
         onConflict: Append
@@ -47,7 +47,7 @@ engine:
         - type: RewritePath
           rewriteTo: "lab.md"
     - include: ['asa-e.md']
-      condition: "#customize == 'asae'"
+      condition: "#customize == 2"
       - name: lab
         type: Combo
         onConflict: Append
