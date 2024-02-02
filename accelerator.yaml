@@ -37,12 +37,37 @@ accelerator:
 engine:
   merge:
   - include: [ "**" ]
-  - name: azure
-    # type: Combo
+  - name: lab
+    type: Combo
     onConflict: Append
-    condition: "#customize.contains('1')"
     sources:
+    - include: ["lab.md"]
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: [NAME]
+          with: "#name"
     - include: ["azure.md"]
-    chain:
-    - type: RewritePath
-      rewriteTo: "lab.md"
+      condition: "#customize.contains('1')"
+      chain:
+      - type: RewritePath
+        rewriteTo: "lab.md"
+    - include: ["asa-e.md"]
+      condition: "#customize.contains('2')"
+      chain:
+      - type: RewritePath
+        rewriteTo: "lab.md"
+    - include: ["cosmos.md"]
+      condition: "#customize.contains('3')"
+      chain:
+      - type: RewritePath
+        rewriteTo: "lab.md"
+    - include: ["openai.md"]
+      condition: "#customize.contains('4')"
+      chain:
+      - type: RewritePath
+        rewriteTo: "lab.md"
+    - include: ["bottom.md"]
+      chain:
+      - type: RewritePath
+        rewriteTo: "lab.md"
