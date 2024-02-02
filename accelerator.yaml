@@ -28,21 +28,21 @@ accelerator:
         value: 2
       - text: "How to deploy Azure Cosmos DB"
         value: 3
-      - text: "How to deploy Azure OpenAI"
+      - text: "How to deploy Azure OpenAI!"
         value: 4
-      - text: "How to deploy Azure Speech to Text!"
+      - text: "How to deploy Azure Speech to Text"
         value: 5
     display: true
 
 engine:
   merge:
-  - include: [ "**" ]
+  # - include: [ "**" ]
   - name: azure
-    type: Combo
+    # type: Combo
     # onConflict: Append
     condition: "#customize.contains('1')"
     sources:
     - include: ["azure.md"]
-    # chain:
-    # - type: RewritePath
-    #   rewriteTo: "lab.md"
+    chain:
+    - type: RewritePath
+      rewriteTo: "lab.md"
