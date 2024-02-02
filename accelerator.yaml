@@ -40,7 +40,7 @@ accelerator:
 
 engine:
   merge:
-  - include: [ "**" ]
+  - include: [ "*.md" ]
   - name: lab
     type: Combo
     onConflict: Append
@@ -66,12 +66,13 @@ engine:
       - type: RewritePath
         rewriteTo: "lab.md"
     - include: ["bottom.md"]
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-    # - include: ["lab.md"]
-    #   chain:
-    #   - type: ReplaceText
-    #     substitutions:
-    #     - text: [NAME]
-    #       with: "#name"
+    chain:
+    - type: RewritePath
+      rewriteTo: "lab.md"
+  - include: ["lab.md"]
+    chain:
+    - type: ReplaceText
+      substitutions:
+      - text: [NAME]
+        with: "#name"
+  - include: ["**"]
