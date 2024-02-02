@@ -26,9 +26,9 @@ accelerator:
         value: 1
       - text: "How to deploy Azure Spring Apps Enterprise"
         value: 2
-      - text: "How to deploy Azure Cosmos DB"
+      - text: "How to deploy Azure Cosmos DB!"
         value: 3
-      - text: "How to deploy Azure OpenAI!"
+      - text: "How to deploy Azure OpenAI"
         value: 4
       - text: "How to deploy Azure Speech to Text"
         value: 5
@@ -39,7 +39,7 @@ engine:
   # - include: [ "**" ]
   - name: azure
     # type: Combo
-    # onConflict: Append
+    onConflict: Append
     condition: "#customize.contains('1')"
     sources:
     - include: ["azure.md"]
