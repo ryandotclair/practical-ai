@@ -11,6 +11,10 @@ accelerator:
     label: "What is your name?"
     display: true
     required: true
+    - name: name
+    label: "Enter your phone number, without any spaces or symbols (used purely for creating unique resources--we don't store or use this number)?"
+    display: true
+    required: true
   - name: helper
     label: "I'm not an Azure expert!"
     dataType: boolean
@@ -22,7 +26,7 @@ accelerator:
     inputType: checkbox
     dataType: [string]
     choices:
-      - text: "I'm new to Azure, explain the main constructs!"
+      - text: "I'm new to Azure, explain the main constructs"
         value: 1
       - text: "How to deploy Azure Spring Apps Enterprise"
         value: 2
@@ -30,7 +34,7 @@ accelerator:
         value: 3
       - text: "How to deploy Azure OpenAI"
         value: 4
-      - text: "How to deploy Azure Speech to Text"
+      - text: "How to deploy Azure Speech to Text!"
         value: 5
     display: true
 
@@ -41,12 +45,6 @@ engine:
     type: Combo
     onConflict: Append
     sources:
-    - include: ["lab.md"]
-      chain:
-      - type: ReplaceText
-        substitutions:
-        - text: [NAME]
-          with: "#name"
     - include: ["azure.md"]
       condition: "#customize.contains('1')"
       chain:
@@ -71,3 +69,9 @@ engine:
       chain:
       - type: RewritePath
         rewriteTo: "lab.md"
+    # - include: ["lab.md"]
+    #   chain:
+    #   - type: ReplaceText
+    #     substitutions:
+    #     - text: [NAME]
+    #       with: "#name"
