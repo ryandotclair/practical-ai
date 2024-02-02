@@ -11,7 +11,7 @@ accelerator:
     label: "What is your name?"
     display: true
     required: true
-    - name: name
+  - name: name
     label: "Enter your phone number, without any spaces or symbols"
     display: true
     required: true
