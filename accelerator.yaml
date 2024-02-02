@@ -24,7 +24,7 @@ accelerator:
     choices:
       - text: "I'm new to Azure, explain the main constructs"
         value: 1
-      - text: "How to deploy Azure Spring Apps Enterprise!"
+      - text: "How to deploy Azure Spring Apps Enterprise"
         value: 2
       - text: "How to deploy Azure Cosmos DB"
         value: 3
@@ -39,6 +39,7 @@ engine:
   - name: azure
     type: Combo
     onConflict: Append
+    condition: "#customize.contains('1')"
     sources:
     - include: ["azure.md"]
     chain:
@@ -47,6 +48,7 @@ engine:
   - name: asae
     type: Combo
     onConflict: Append
+    condition: "#customize.contains('2')"
     sources:
     - include: ["asa-e.md"]
     chain:
