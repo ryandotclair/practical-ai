@@ -39,19 +39,10 @@ engine:
   - include: [ "**" ]
   - name: azure
     type: Combo
-    onConflict: Append
+    # onConflict: Append
     condition: "#customize.contains('1')"
     sources:
     - include: ["azure.md"]
-    chain:
-    - type: RewritePath
-      rewriteTo: "lab.md"
-  - name: asae
-    type: Combo
-    onConflict: Append
-    condition: "#customize.contains('2')"
-    sources:
-    - include: ["asa-e.md"]
-    chain:
-    - type: RewritePath
-      rewriteTo: "lab.md"
+    # chain:
+    # - type: RewritePath
+    #   rewriteTo: "lab.md"
