@@ -22,9 +22,9 @@ accelerator:
     inputType: checkbox
     dataType: [string]
     choices:
-      - text: "I'm new to Azure, explain the main constructs"
+      - text: "I'm new to Azure, explain the main constructs!"
         value: 1
-      - text: "How to deploy Azure Spring Apps Enterprise!"
+      - text: "How to deploy Azure Spring Apps Enterprise"
         value: 2
       - text: "How to deploy Azure Cosmos DB"
         value: 3
@@ -36,6 +36,7 @@ accelerator:
 
 engine:
   merge:
+  - include: [ "**" ]
   - name: azure
     type: Combo
     onConflict: Append
