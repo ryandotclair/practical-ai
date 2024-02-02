@@ -12,7 +12,7 @@ accelerator:
     display: true
     required: true
     - name: name
-    label: "Enter your phone number, without any spaces or symbols (used purely for creating unique resources--we don't store or use this number)?"
+    label: "Enter your phone number, without any spaces or symbols"
     display: true
     required: true
   - name: helper
