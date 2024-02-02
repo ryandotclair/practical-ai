@@ -36,23 +36,19 @@ accelerator:
 
 engine:
   merge:
-  - include: ['azure.md']
-    condition: "#customize == 1"
-    - name: lab
-      type: Combo
-      onConflict: Append
-      sources:
-      - include: ["azure.md"]
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-  - include: ['asa-e.md']
-    condition: "#customize == 2"
-    - name: lab
-      type: Combo
-      onConflict: Append
-      sources:
-      - include: ["asa-e.md"]
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
+  - name: azure
+    type: Combo
+    onConflict: Append
+    sources:
+    - include: ["azure.md"]
+    chain:
+    - type: RewritePath
+      rewriteTo: "lab.md"
+  - name: asae
+    type: Combo
+    onConflict: Append
+    sources:
+    - include: ["asa-e.md"]
+    chain:
+    - type: RewritePath
+      rewriteTo: "lab.md"
