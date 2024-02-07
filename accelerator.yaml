@@ -12,67 +12,78 @@ accelerator:
     display: true
     required: true
   - name: phone
-    label: "Enter your phone number, without any spaces or symbols"
+    label: "Enter your phone number (or 10 random numbers), without any spaces or symbols"
     display: true
     required: true
   - name: helper
-    label: "I'm not an Azure expert!"
+    label: "I'm not an Azure expert."
     dataType: boolean
     defaultValue: true
-  - name: customize
+  - name: explainer
     label: "Let's Customize this guide to your experience! Select which instructions you need."
     dependsOn:
       name: helper
     inputType: checkbox
     dataType: [string]
     choices:
-      - text: "I'm new to Azure, explain the main constructs!"
-        value: 1
-      - text: "How to deploy Azure Spring Apps Enterprise"
-        value: 2
-      - text: "How to deploy Azure Cosmos DB"
-        value: 3
-      - text: "How to deploy Azure OpenAI"
-        value: 4
-      - text: "How to deploy Azure Speech to Text"
-        value: 5
+      - text: "I'm new to Azure, explain the main Azure constructs"
+        value: "azure"
+      - text: "Walk me through installing the az CLI tool"
+        value: "az"
+      - text: "Explain Azure Spring Apps Enterprise and how to deploy"
+        value: "asae"
+      - text: "Explain Azure Cosmos DB and how to deploy"
+        value: "cosmos"
+      - text: "Explain Azure OpenAI and how to deploy"
+        value: "openai"
     display: true
 
 engine:
   merge:
-  - include: [ "*.md" ]
-  - name: lab
-    type: Combo
-    onConflict: Append
-    sources:
-    - include: ["azure.md"]
-      condition: "#customize.contains('1')"
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-    - include: ["asa-e.md"]
-      condition: "#customize.contains('2')"
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-    - include: ["cosmos.md"]
-      condition: "#customize.contains('3')"
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-    - include: ["openai.md"]
-      condition: "#customize.contains('4')"
-      chain:
-      - type: RewritePath
-        rewriteTo: "lab.md"
-    - include: ["bottom.md"]
-    chain:
-    - type: RewritePath
-      rewriteTo: "lab.md"
-  - include: ["lab.md"]
-    chain:
-    - type: ReplaceText
-      substitutions:
-      - text: [NAME]
-        with: "#name"
-  - include: ["**"]
+    - name: AZURE
+      type: Combo
+      onConflict: Append
+      merge:
+      - include: [ "lab.md" ]
+        chain:
+        - type: ReplaceText
+          substitutions:
+          - text: "[NAME]"
+            with: "#name"
+      - include: [ "azure.md" ]
+        condition: "#explainer.contains('azure')"
+        chain:
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
+      - include: [ "az.md" ]
+        condition: "#explainer.contains('az')"
+        chain:
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
+      - include: [ "asa-e.md" ]
+        condition: "#explainer.contains('asae')"
+        chain:
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
+      - include: [ "cosmos.md" ]
+        condition: "#explainer.contains('cosmos')"
+        chain:
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
+      - include: [ "openai.md" ]
+        condition: "#explainer.contains('openai')"
+        chain:
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
+      - include: [ "bottom.md" ]
+        chain:
+        - type: ReplaceText
+          substitutions:
+          - text: "[NAME]"
+            with: "#name"
+        - type: ReplaceText
+          substitutions:
+          - text: "[PHONE]"
+            with: "#phone"
+        - type: RewritePath
+          rewriteTo: "'lab.md'"
