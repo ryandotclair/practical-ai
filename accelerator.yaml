@@ -32,7 +32,7 @@ accelerator:
         value: "az"
       - text: "Explain Azure Spring Apps Enterprise and how to deploy"
         value: "asae"
-      - text: "Explain Azure Cosmos DB and how to deploy"
+      - text: "Explain Azure Cache for Redis and how to deploy"
         value: "cosmos"
       - text: "Explain Azure OpenAI and how to deploy"
         value: "openai"
@@ -68,7 +68,7 @@ engine:
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
-      - include: [ "cosmos.md" ]
+      - include: [ "redis.md" ]
         condition: "#helper"
         condition: "#explainer.contains('cosmos')"
         chain:

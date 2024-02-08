@@ -3,9 +3,10 @@
 
 Assuming you have created the below resources into US East:
 - Resource Group called `practical-ai`
-- CosmosDB called `practical-[PHONE]`
-- OpenAI
-- Azure Spring Apps Enterprise instances called `practical-[PHONE]`
+    - CosmosDB called `practical-[PHONE]`
+    - OpenAI called `practical-[PHONE]`
+    - Redis called `practical-[PHONE]`
+    - Azure Spring Apps Enterprise instances called `practical-[PHONE]`
 
 And you've set the below defaults into your trusty az CLI tool:
 ```bash
