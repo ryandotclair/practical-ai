@@ -16,7 +16,7 @@ accelerator:
     display: true
     required: true
   - name: helper
-    label: "I'm not an Azure expert."
+    label: "I'm not an Azure expert"
     dataType: boolean
     defaultValue: true
   - name: explainer
@@ -51,26 +51,31 @@ engine:
           - text: "[NAME]"
             with: "#name"
       - include: [ "azure.md" ]
+        condition: "#helper"
         condition: "#explainer.contains('azure')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "az.md" ]
+        condition: "#helper"
         condition: "#explainer.contains('az')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "asa-e.md" ]
+        condition: "#helper"
         condition: "#explainer.contains('asae')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "cosmos.md" ]
+        condition: "#helper"
         condition: "#explainer.contains('cosmos')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "openai.md" ]
+        condition: "#helper"
         condition: "#explainer.contains('openai')"
         chain:
         - type: RewritePath
