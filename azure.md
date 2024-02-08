@@ -27,5 +27,5 @@ Account
 
 Click on the search bar at the top, search for Resource Groups. Hit the `+ Create` button towards the top. In this screen you'll see you can have access to multiple subscriptions (use-case: Production vs. Dev subscription). Name your RG `practical-ai`, and leave the default region (East US). Hit `Review + create` button.
 
-> Note: 
+You're ready to deploy all the services you need for marvin to run!
 
