@@ -1,5 +1,5 @@
 
-# This is OpenAI
+# Azure OpenAI
 
 This section covers:
 - How to get access
