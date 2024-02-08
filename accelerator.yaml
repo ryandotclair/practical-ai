@@ -16,7 +16,7 @@ accelerator:
     display: true
     required: true
   - name: helper
-    label: "I'm not an Azure expert"
+    label: "I'm not an Azure expert."
     dataType: boolean
     defaultValue: true
   - name: explainer
