@@ -11,18 +11,12 @@ accelerator:
     label: "What is your name?"
     display: true
     required: true
-  - name: phone
-    label: "Enter your phone number (or 10 random numbers), without any spaces or symbols"
+  - name: tmdbapi
+    label: "Enter the TMDB API token (obtained [here](https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start))"
     display: true
     required: true
-  - name: helper
-    label: "I'm not an Azure expert."
-    dataType: boolean
-    defaultValue: true
   - name: explainer
-    label: "Let's Customize this guide to your experience! Select which instructions you need."
-    dependsOn:
-      name: helper
+    label: "Let's Customize this guide to your experience! Select which additional instructions you need."
     inputType: checkbox
     dataType: [string]
     choices:
@@ -30,11 +24,11 @@ accelerator:
         value: "azure"
       - text: "Walk me through installing the az CLI tool"
         value: "az"
-      - text: "Explain Azure Spring Apps Enterprise and how to deploy"
+      - text: "Explain Azure Spring Apps Enterprise and how to deploy one"
         value: "asae"
-      - text: "Explain Azure Cache for Redis and how to deploy"
+      - text: "Explain Azure Cache for Redis and how to deploy one"
         value: "cosmos"
-      - text: "Explain Azure OpenAI and how to deploy"
+      - text: "Explain Azure OpenAI and how to deploy a model"
         value: "openai"
     display: true
 
@@ -50,32 +44,35 @@ engine:
           substitutions:
           - text: "[NAME]"
             with: "#name"
+        - type: ReplaceText
+          substitutions:
+          - text: "[tmdbapi]"
+            with: "#tmdbapi.substring(0, 10)"
       - include: [ "azure.md" ]
-        condition: "#helper"
         condition: "#explainer.contains('azure')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "az.md" ]
-        condition: "#helper"
         condition: "#explainer.contains('az')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "asa-e.md" ]
-        condition: "#helper"
         condition: "#explainer.contains('asae')"
         chain:
+          - type: ReplaceText
+          substitutions:
+          - text: "[tmdbapi]"
+            with: "#tmdbapi.substring(0, 10)"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "redis.md" ]
-        condition: "#helper"
         condition: "#explainer.contains('cosmos')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "openai.md" ]
-        condition: "#helper"
         condition: "#explainer.contains('openai')"
         chain:
         - type: RewritePath
@@ -88,7 +85,7 @@ engine:
             with: "#name"
         - type: ReplaceText
           substitutions:
-          - text: "[PHONE]"
-            with: "#phone"
+          - text: "[tmdbapi]"
+            with: "#tmdbapi.substring(0, 10)"
         - type: RewritePath
           rewriteTo: "'lab.md'"
