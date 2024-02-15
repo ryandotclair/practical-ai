@@ -27,7 +27,7 @@ accelerator:
       - text: "Explain Azure Spring Apps Enterprise and how to deploy one"
         value: "asae"
       - text: "Explain Azure Cache for Redis and how to deploy one"
-        value: "cosmos"
+        value: "redis"
       - text: "Explain Azure OpenAI and how to deploy a model"
         value: "openai"
     display: true
@@ -68,7 +68,7 @@ engine:
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "redis.md" ]
-        condition: "#explainer.contains('cosmos')"
+        condition: "#explainer.contains('redis')"
         chain:
         - type: RewritePath
           rewriteTo: "'lab.md'"
