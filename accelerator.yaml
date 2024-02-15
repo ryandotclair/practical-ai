@@ -31,6 +31,7 @@ accelerator:
       - text: "Explain Azure OpenAI and how to deploy a model"
         value: "openai"
     display: true
+    required: false
 
 engine:
   merge:
