@@ -36,5 +36,5 @@ az spring create --name practical-[tmdbapi] \
     --location eastus \
     --sku Enterprise
 ```
-The above command usually takes about 8min. If you've got other infrastructure to deploy, feel free to move on to those in this guide. Otherwise grab a cup of cofee or tea.
+The above command usually takes about 8 minutes. If you've got other infrastructure to deploy, feel free to move on to those in this guide. Otherwise grab a cup of cofee or tea!
 
