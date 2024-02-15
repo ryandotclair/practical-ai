@@ -62,9 +62,9 @@ engine:
         condition: "#explainer.contains('asae')"
         chain:
           - type: ReplaceText
-          substitutions:
-          - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            substitutions:
+            - text: "[tmdbapi]"
+              with: "#tmdbapi.substring(0, 10)"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "redis.md" ]
