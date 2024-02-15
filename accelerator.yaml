@@ -13,12 +13,9 @@ accelerator:
     required: true
   - name: tmdbapi
     label: "Enter the TMDB API token:"
+    description: "You can obtained TMDB API token here: https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start)"
     display: true
     required: true
-  - name: label
-    description: "You can obtained TMDB API token here: https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start)"
-    dataType: string
-    required: false
   - name: explainer
     label: "Let's Customize this guide to your experience! Select which additional instructions you need."
     inputType: checkbox
