@@ -1,0 +1,333 @@
+[
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "original_title": "Avatar",
+    "release_date": "2009-12-10",
+    "revenue": 2787965087,
+    "title": "Avatar",
+    "vote_average": 7.2
+  },
+  {
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      }
+    ],
+    "original_title": "Pirates of the Caribbean: At World's End",
+    "release_date": "2007-05-19",
+    "revenue": 961000000,
+    "title": "Pirates of the Caribbean: At World's End",
+    "vote_average": 6.9
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 80,
+        "name": "Crime"
+      }
+    ],
+    "original_title": "Spectre",
+    "release_date": "2015-10-26",
+    "revenue": 880674609,
+    "title": "Spectre",
+    "vote_average": 6.3
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 80,
+        "name": "Crime"
+      },
+      {
+        "id": 18,
+        "name": "Drama"
+      },
+      {
+        "id": 53,
+        "name": "Thriller"
+      }
+    ],
+    "original_title": "The Dark Knight Rises",
+    "release_date": "2012-07-16",
+    "revenue": 1084939099,
+    "title": "The Dark Knight Rises",
+    "vote_average": 7.6
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "original_title": "John Carter",
+    "release_date": "2012-03-07",
+    "revenue": 284139100,
+    "title": "John Carter",
+    "vote_average": 6.1
+  },
+  {
+    "genres": [
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      }
+    ],
+    "original_title": "Spider-Man 3",
+    "release_date": "2007-05-01",
+    "revenue": 890871626,
+    "title": "Spider-Man 3",
+    "vote_average": 5.9
+  },
+  {
+    "genres": [
+      {
+        "id": 16,
+        "name": "Animation"
+      },
+      {
+        "id": 10751,
+        "name": "Family"
+      }
+    ],
+    "original_title": "Tangled",
+    "release_date": "2010-11-24",
+    "revenue": 591794936,
+    "title": "Tangled",
+    "vote_average": 7.4
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "original_title": "Avengers: Age of Ultron",
+    "release_date": "2015-04-22",
+    "revenue": 1405403694,
+    "title": "Avengers: Age of Ultron",
+    "vote_average": 7.3
+  },
+  {
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 10751,
+        "name": "Family"
+      }
+    ],
+    "original_title": "Harry Potter and the Half-Blood Prince",
+    "release_date": "2009-07-07",
+    "revenue": 933959197,
+    "title": "Harry Potter and the Half-Blood Prince",
+    "vote_average": 7.4
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      }
+    ],
+    "original_title": "Batman v Superman: Dawn of Justice",
+    "release_date": "2016-03-23",
+    "revenue": 873260194,
+    "title": "Batman v Superman: Dawn of Justice",
+    "vote_average": 5.7
+  },
+  {
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "original_title": "Superman Returns",
+    "release_date": "2006-06-28",
+    "revenue": 391081192,
+    "title": "Superman Returns",
+    "vote_average": 5.4
+  },
+  {
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 53,
+        "name": "Thriller"
+      },
+      {
+        "id": 80,
+        "name": "Crime"
+      }
+    ],
+    "original_title": "Quantum of Solace",
+    "release_date": "2008-10-30",
+    "revenue": 586090727,
+    "title": "Quantum of Solace",
+    "vote_average": 6.1
+  },
+  {
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      }
+    ],
+    "original_title": "Pirates of the Caribbean: Dead Man's Chest",
+    "release_date": "2006-06-20",
+    "revenue": 1065659812,
+    "title": "Pirates of the Caribbean: Dead Man's Chest",
+    "vote_average": 7
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 37,
+        "name": "Western"
+      }
+    ],
+    "original_title": "The Lone Ranger",
+    "release_date": "2013-07-03",
+    "revenue": 89289910,
+    "title": "The Lone Ranger",
+    "vote_average": 5.9
+  },
+  {
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 14,
+        "name": "Fantasy"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "original_title": "Man of Steel",
+    "release_date": "2013-06-12",
+    "revenue": 662845518,
+    "title": "Man of Steel",
+    "vote_average": 6.5
+  }
+]

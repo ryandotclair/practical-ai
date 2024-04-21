@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+code {
+    @apply bg-blue-50 text-gray-800 rounded p-0.5;
+}
+
+p {
+    @apply my-2;
+}
+
+ul {
+    @apply list-disc list-outside;
+    padding: revert;
+}
+
+
+pre, code {
+    @apply max-w-full overflow-x-scroll;
+}

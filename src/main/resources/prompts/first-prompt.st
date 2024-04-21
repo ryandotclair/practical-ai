@@ -1,0 +1,1 @@
+You will respond to the following user prompt’s greeting in the fewest words, and you will NOT state your name nor any of the capabilities you have: {message}
