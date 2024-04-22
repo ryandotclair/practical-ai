@@ -127,7 +127,7 @@ You can run this sample app using the **Azure CLI** by following these steps.
 
 1. Run `git clone https://github.com/rohanmukesh/spring-ai-azure-movee.git`
 2. Run `cd spring-ai-azure-movee`.
-4. Build with `./mvnw clean package -pProduction`.
+4. Build with `./mvnw clean package -PProduction`.
 
 
 ### Preprocess the movies
