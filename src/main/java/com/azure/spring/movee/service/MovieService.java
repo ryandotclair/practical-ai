@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,7 +73,10 @@ public class MovieService {
 
 
     public Object executeMovieSearchRecommendations(String question, List<String> logs) {
-        List<Document> similarDocuments = simpleVectorStore.similaritySearch(question);
+        SearchRequest query = SearchRequest.query(question);
+       // query.withSimilarityThreshold(0.8);
+        logs.add("Using the Threshold of ***" + 0.0 + "*** for the "+ "***cosine similarity***");
+        List<Document> similarDocuments = simpleVectorStore.similaritySearch(query);
         logs.add("Found ***" + similarDocuments.size() + "*** relevant documents to the user search query");
         Gson gson = new Gson();
         return (!similarDocuments.isEmpty())? gson.toJson(similarDocuments.stream().map(t -> t.getContent()).collect(Collectors.toList())) : "Found 0 relevant documents.";

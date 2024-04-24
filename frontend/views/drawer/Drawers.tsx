@@ -96,9 +96,9 @@ export default function TemporaryDrawer({...props}) {
             <IconButton style={{
                     overflow: "hidden",
                     borderRadius: 10,
-                    backgroundColor: "#ececf1",
-                    padding: "2px 2px",
-                    fontSize: "14px",
+                    backgroundColor: "white",
+                    padding: "1px 1px",
+                    fontSize: "16px",
                     textTransform: "none",
                     fontWeight: "bold",
                     margin: "4px"

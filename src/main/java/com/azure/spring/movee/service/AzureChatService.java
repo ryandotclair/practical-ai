@@ -89,6 +89,7 @@ public class AzureChatService {
             String resourceMessage = "* Tree Of Thought paper: [link](https://arxiv.org/abs/2305.10601)\n * Tree Of Thought prompt examples: [link](https://github.com/dave1010/tree-of-thought-prompting/blob/main/tree-of-thought-prompts.txt)\n * Part Time Larry Embeddings video: [link](https://www.youtube.com/watch?v=xzHhZh7F25I)\n * Embeddings picture source: [link](https://www.featureform.com/post/the-definitive-guide-to-embeddings)\n * **Deploy Vee yourself**: [https://portal.movee.dev/](https://portal.movee.dev/)\n * **Have questions on Azure Spring Apps Enterprise?**: [Contact Us](mailto:tanzu-azure.pdl@broadcom.com?subject=AI%20Event%20Question) \n    * Tanzu-Azure.pdl@broadcom.com";
             return Flux.just("", resourceMessage);
         }
+
         if (history.size() == 1) {
             PromptTemplate promptTemplate = new PromptTemplate(firstPrompt);
             Prompt prompt = promptTemplate.create(Map.of("message", history.get(0).getContent()));
@@ -150,8 +151,9 @@ public class AzureChatService {
             ChatCompletionsFunctionToolCall functionToolCall = new ChatCompletionsFunctionToolCall(functionDetails.getToolID(), functionCall);
             ChatRequestAssistantMessage assistantRequestMessage = new ChatRequestAssistantMessage("");
             assistantRequestMessage.setToolCalls(List.of(functionToolCall));
+            logs.add("The model needs more data and is running function: ***"+functionDetails.getFunctionName()+"***");
             if (functionCall.getName().equals("getMovieList")) {
-                String prompt = "Imagine three brilliant, logical experts collaboratively answering the above question. Each one verbosely explains their thought process in real-time, considering the prior explanations of others and openly acknowledging mistakes. At each step, whenever possible, each expert refines and builds upon the thoughts of others, acknowledging their contributions. They continue until there is a definitive answer to the question. The final agreed upon answer should be given in a numbered list format, in the format of Movie Title {original_title} - Release Date: {release_date} - Rating: {avg_vote}. NEVER truncate the results. List every movie.";
+                String prompt = "Imagine three brilliant, logical experts collaboratively answering the above question. Each one verbosely explains their thought process in real-time, considering the prior explanations of others and openly acknowledging mistakes. At each step, whenever possible, each expert refines and builds upon the thoughts of others, acknowledging their contributions. They continue until there is a definitive answer to the question. The final agreed upon answer should be given in a markdown numbered list format, in the format of ***{original_title}*** - ***Release Date***: {release_date} - ***Rating***:{avg_vote}. As a sub-bullet include ***Overview***: {overview}. NEVER truncate the results. List every movie in the markdown format.";
                 ChatRequestUserMessage chatRequestUserMessage = new ChatRequestUserMessage(prompt);
                 followUpMessages.add(chatRequestUserMessage);
                 logs.add("Prompt Engineering strategy used: ***Tree of Thought***");
@@ -160,9 +162,9 @@ public class AzureChatService {
                 ChatCompletionMessage userMessage = new ChatCompletionMessage(Role.USER, prompt);
                 additionalMessages.add(userMessage);
             }
-            logs.add("The model needs more data and is running function: ***"+functionDetails.getFunctionName()+"***");
+
             if (functionCall.getName().equals("getSimilarMovies")) {
-                String enhancedPrompt = "Generate an even better prompt than what I used above";
+                String enhancedPrompt = "Generate an even better search prompt than my previous prompt. The search prompt will be used against an embedding datastore of combined movie synopsis and genres. Do not include the movie title. Reply back with ONLY the new search prompt. No AI commentary";
                 ChatRequestUserMessage chatRequestEnhancedUserMessage = new ChatRequestUserMessage(enhancedPrompt);
                 followUpMessages.add(chatRequestEnhancedUserMessage);
                 logs.add("Creating one-shot Prompt: ***"+enhancedPrompt+"***");
@@ -185,15 +187,16 @@ public class AzureChatService {
                 ChatCompletionMessage userMessage = new ChatCompletionMessage(Role.USER, prompt);
                 additionalMessages.add(userMessage);
                 logs.add("The Embedding model used to search the user query: ***text-embedding-ada-002***");
+                question = prompt;
             }
             functionCallResult = movieFunctions.executeFunctionCall(functionDetails, question, logs);
             logs.add("The tools call result: \n\n ```"+functionCallResult.toString()+"```");
             ChatRequestToolMessage toolRequestMessage = new ChatRequestToolMessage(functionCallResult.toString(), functionDetails.getToolID());
             if (functionCall.getName().equals("getSimilarMovies")) {
-                String formattingPrompt = "Ensure the returned list of movies is in a numbered list format, with both movie title and rating in the same line, and in preceding sub-bullets include genre and overview for that movie. NEVER truncate the results and list every movie. Example output you should use:\n 1. **{original_title}** - Rating {avg_vote} \n    * **Genres**: {genres} \n    * **Overview**: {overview}\n";
+                String formattingPrompt = "Ensure the returned list of movies is in a numbered list format, with both movie title and rating in the same line, and in preceding sub-bullets include genre and overview for that movie. NEVER truncate the results and list every movie. Example output you should use:\n 1. ***{original_title}*** - **Rating** {avg_vote} \n    * **Genres**: {genres} \n    * **Overview**: {overview}\n";
                 ChatRequestUserMessage chatRequestUserMessage = new ChatRequestUserMessage(formattingPrompt);
                 followUpMessages.add(chatRequestUserMessage);
-                logs.add("Added formatting to the conversation: **Ensure the returned movies is in a numbered list, with **{movie title}** - Rating {rating}, a sub-bullet for Genres: {genres} and a sub-bullet for ‘Overview: {overview}**\n");
+                logs.add("Added formatting to the conversation: **Ensure the returned movies is in a markdown numbered list, with **{movie title}** - Rating {rating}, a sub-bullet for Genres: {genres} and a sub-bullet for ‘Overview: {overview}**\n");
             }
             followUpMessages.add(assistantRequestMessage);
             followUpMessages.add(toolRequestMessage);
@@ -210,6 +213,9 @@ public class AzureChatService {
                                 ChatChoice choice = chatCompletions.getChoices().get(0);
                                 if(choice.getDelta().getContent() != null) {
                                     outputData.add(choice.getDelta().getContent());
+                                    if (choice.getDelta().getContent().contains("\n\n") && choice.getFinishReason() != CompletionsFinishReason.STOPPED) {
+                                        return choice.getDelta().getContent().replace("\n\n", "\n");
+                                    }
                                     return choice.getDelta().getContent();
                                 }
                                 return "";
@@ -226,7 +232,7 @@ public class AzureChatService {
         } else if (finishReason.get() == CompletionsFinishReason.CONTENT_FILTERED) {
             return Flux.just("", "The response was filtered due to the prompt triggering Azure OpenAI's content management policy. Please modify your prompt and retry.");
         } else if (messages.size() == 2) {
-            outputData.add(" I'm Vee, like your movie-savvy friend who knows too much, but without the annoying habit of talking during the film. I can help you with things like... \n **1. Show you what movies are in theaters (today or in the future), in a given city**. \n **2. Give movie synopses**. \n**3. Find similar movies**. \n For list of supported sub-commands, type **HELP** (all caps)");
+            outputData.add(" I'm Vee, like your movie-savvy friend who knows too much, but without the annoying habit of talking during the film. I can help you with things like... \n **1. Show you what movies are in theaters (today or in the future), in a given city**.\n **2. Give movie synopses**.\n**3. Find similar movies**.\n For list of supported sub-commands, type **HELP**");
         }
         return Flux.fromIterable(outputData)
                 .onErrorResume(e -> Mono.just("Error " + e.getMessage()))

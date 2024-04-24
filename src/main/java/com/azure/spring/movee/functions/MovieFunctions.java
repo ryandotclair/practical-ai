@@ -41,7 +41,7 @@ public class MovieFunctions {
 
     private FunctionDefinition getSimilarMoviesFunctionDefinition() {
         FunctionDefinition functionDefinition = new FunctionDefinition("getSimilarMovies");
-        functionDefinition.setDescription("This function returns similar movies.");
+        functionDefinition.setDescription("This function recommends 4 similar movies based on the characteristics of a movie. For best results, use the {overview} data from getMovieList function to create a strong movie description, and include any overarching themes or tones.");
         MovieRecommendationParameters parameters = new MovieRecommendationParameters();
         functionDefinition.setParameters(BinaryData.fromObject(parameters));
         return functionDefinition;

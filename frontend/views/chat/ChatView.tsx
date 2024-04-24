@@ -16,29 +16,28 @@ import ChatCompletionMessage from "Frontend/generated/com/azure/spring/movee/mod
 //     TypingIndicator,
 // } from "@chatscope/chat-ui-kit-react";
 import {VirtualList} from "@hilla/react-components/VirtualList";
-import {MessageInput} from "@hilla/react-components/MessageInput";
-import {MessageList, MessageListItem} from "@hilla/react-components/MessageList";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import {Message, MessageList, MessageInput, MessageSeparator, TypingIndicator} from "@chatscope/chat-ui-kit-react";
 
 export default function ChatView({...props}) {
     const [ip, setIp] = useState()
     const [date, setDate] = useState("")
     const [working, setWorking] = useState(false);
-    const [messages, setMessages] = useState<MessageListItem[]>([]);
+    const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
     const [isChatbotTyping, setIsChatbotTyping] = useState(false);
     const [isChatbotThinking, setIsChatbotThinking] = useState(false);
-    const [backendMessage, setBackendMessages] = useState<ChatCompletionMessage[]>([]);
     async function getCompletion(text: string) {
         if (working) return;
         setWorking(true);
         setIsChatbotThinking(true);
-
+        console.log("text:" +" "+ text)
         const messageHistory = [
             ...messages,
             {
-                text: text,
-                userName: '',
-                theme: 'current-user',
-            }
+                role: Role.USER,
+                content: text,
+            },
         ];
 
         // Display the question
@@ -55,36 +54,27 @@ export default function ChatView({...props}) {
                 setMessages((msg) => [
                     ...msg,
                     {
-                        text: '',
-                        userName: '',
-                        theme: "assistant"
-                    }
+                        role: Role.ASSISTANT,
+                        content: '',
+                    },
                 ]);
                 firstChunk = false;
             } else {
 
                 setMessages((msg) => {
                     const lastMessage = msg[msg.length - 1];
-                    lastMessage.text += chunk;
+                    lastMessage.content += chunk;
                     return [...msg.slice(0, -1), lastMessage];
                 });
             }
         }
 
-        for (let i = 0; i < messageHistory.length; i++) {
-            backendMessage.push(
-            {
-                role: messageHistory[i].theme == "current-user"? Role.USER: Role.ASSISTANT,
-                content: messageHistory[i].text,
-            }
-            );
-        }
         // Get completion as stream
-        AzureChatController.getChats(backendMessage, ip)
+        AzureChatController.getChats(messageHistory, ip)
             .onNext((chunk) => appendToLastMessage(chunk?chunk:""))
             .onComplete(() => {
                 setWorking(false);
-                setIsChatbotTyping(false);
+                setIsChatbotTyping(false)
             })
             .onError(() => {
                 console.error('Error processing stream');
@@ -118,38 +108,34 @@ export default function ChatView({...props}) {
     return (
         <div className={"chat-container"}>
             <TemporaryDrawer cleanup = {cleanup}></TemporaryDrawer>
-            <MessageList items={messages} className="cs-message-list flex-grow">
+            <MessageList
+                typingIndicator={
+                    isChatbotThinking ? <TypingIndicator style={{"backgroundColor": "#383D38", "color": "white", "fontWeight": "bold", "fontFamily" : "SÃ¶hne,helvetica,sans-serif"}} content="Vee is thinking" />
+                        : isChatbotTyping ? <TypingIndicator style={{"backgroundColor": "#383D38", "color": "white", "fontWeight": "bold", "fontFamily" : "SÃ¶hne,helvetica,sans-serif"}} content="Vee is typing" />
+                        : null
+                } >
+                {messages.map((item, i) => {
+                    console.log("item: " +item.content)
+                    return <Message model={{
+                        direction: item?.role == "USER"?"outgoing":"incoming",
+                        position: "single"
+                    }}
+                    >
+
+                        <Message.CustomContent>
+                            <ReactMarkdown rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }]]}>{item?.content || ''}</ReactMarkdown>
+                        </Message.CustomContent>
+
+                    </Message>
+                })}
             </MessageList>
-            <MessageInput className="cs-message-input ps" onSubmit={(e) => getCompletion(e.detail.value)} disabled={working} />
-
-            {/*<MessageList*/}
-            {/*    typingIndicator={*/}
-            {/*        isChatbotThinking ? <TypingIndicator style={{"backgroundColor": "#383D38", "color": "white", "fontWeight": "bold", "fontFamily" : "SÃ¶hne,helvetica,sans-serif"}} content="Vee is thinking" />*/}
-            {/*            : isChatbotTyping ? <TypingIndicator style={{"backgroundColor": "#383D38", "color": "white", "fontWeight": "bold", "fontFamily" : "SÃ¶hne,helvetica,sans-serif"}} content="Vee is typing" />*/}
-            {/*            : null*/}
-            {/*    } >*/}
-            {/*    <MessageSeparator style={{color: "white", "backgroundColor": "transparent"  }} content={date} />*/}
-            {/*    {messages.map((item, i) => {*/}
-            {/*        console.log("item: " +item.content)*/}
-            {/*        return <Message model={{*/}
-            {/*            direction: item?.role == "USER"?"outgoing":"incoming",*/}
-            {/*            position: "single"*/}
-            {/*        }}*/}
-            {/*        >*/}
-
-            {/*            <Message.CustomContent>*/}
-            {/*                <ReactMarkdown rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }]]}>{item?.content || ''}</ReactMarkdown>*/}
-            {/*            </Message.CustomContent>*/}
-
-            {/*        </Message>*/}
-            {/*    })}*/}
-            {/*</MessageList>*/}
-            {/*<MessageInput*/}
-            {/*    placeholder="Type Message here"*/}
-            {/*    onSend={getCompletion}*/}
-            {/*    attachButton = {false}*/}
-            {/*    onPaste={(evt) => { evt.preventDefault(); document.execCommand('insertText', false, evt.clipboardData.getData("text")); }}*/}
-            {/*/>*/}
+            <MessageInput
+                placeholder="Type Message here"
+                onSend={getCompletion}
+                attachButton = {false}
+                disabled={isChatbotThinking || isChatbotTyping}
+                onPaste={(evt) => { evt.preventDefault(); document.execCommand('insertText', false, evt.clipboardData.getData("text")); }}
+            />
         </div>
     );
 }

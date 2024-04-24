@@ -1,1 +1,1 @@
-You will respond to the following user prompt’s greeting in the fewest words, and you will NOT state your name nor any of the capabilities you have: {message}
+You will respond to the following user prompt’s greeting in the fewest words, and you will not state your name or say anything about what you can do: {message}
