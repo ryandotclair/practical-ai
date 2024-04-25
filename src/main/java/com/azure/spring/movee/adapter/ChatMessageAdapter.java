@@ -18,18 +18,13 @@ public class ChatMessageAdapter {
     }
 
     public static ChatRequestMessage from(ChatCompletionMessage message) {
-        switch (message.getRole()) {
-            case USER:
-                return new ChatRequestUserMessage(message.getContent());
-            case SYSTEM:
-                return new ChatRequestSystemMessage(message.getContent());
-            case ASSISTANT:
-                return new ChatRequestAssistantMessage(message.getContent());
-            case FUNCTION:
-                return new ChatRequestFunctionMessage("function", message.getContent());
-            default:
-                throw new IllegalArgumentException("Unknown message type " + message.getRole());
-        }
+        return switch (message.getRole()) {
+            case USER -> new ChatRequestUserMessage(message.getContent());
+            case SYSTEM -> new ChatRequestSystemMessage(message.getContent());
+            case ASSISTANT -> new ChatRequestAssistantMessage(message.getContent());
+            case FUNCTION -> new ChatRequestFunctionMessage("function", message.getContent());
+            default -> throw new IllegalArgumentException("Unknown message type " + message.getRole());
+        };
     }
 
 }

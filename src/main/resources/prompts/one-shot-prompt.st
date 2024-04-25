@@ -1,0 +1,1 @@
+Generate an even better search prompt than my previous prompt. The search prompt will be used against an embedding datastore of combined movie synopsis and genres. Do not include the movie title. Reply back with ONLY the new search prompt. No AI commentary

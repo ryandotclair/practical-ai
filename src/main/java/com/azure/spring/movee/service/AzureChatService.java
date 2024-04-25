@@ -121,7 +121,7 @@ public class AzureChatService {
         List<ChatRequestMessage> followUpMessages = new ArrayList<>(messages);
         Object functionCallResult = null;
         if (finishReason.get() == CompletionsFinishReason.TOOL_CALLS) {
-            return Flux.fromStream(movieService.executeFunctionTools(userIp, functionDetails, logs, followUpMessages, additionalMessages, question, outputData, openAIClient, deploymentOrModelId))
+            return Flux.fromStream(movieService.executeFunctionTools(userIp, functionDetails, logs, followUpMessages, additionalMessages, question, outputData))
                     .doAfterTerminate(() -> {
                         persistMessages(userIp, outputData, additionalMessages, logs);
                     }).onErrorResume(e -> {
