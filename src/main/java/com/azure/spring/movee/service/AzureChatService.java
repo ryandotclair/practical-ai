@@ -96,37 +96,35 @@ public class AzureChatService {
         AtomicReference<CompletionsFinishReason> finishReason = new AtomicReference<>();
         ChatFunctionDetails functionDetails = new ChatFunctionDetails();
         List<String> outputData = new ArrayList<>();
-        chatCompletionsStream.stream().skip(1L).forEach(chatCompletions -> {
-            ChatChoice choice = chatCompletions.getChoices().get(0);
-            if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
-                outputData.add(choice.getDelta().getContent());
-            }
-            if (choice.getFinishReason() != null) {
-                finishReason.set(choice.getFinishReason());
-            }
-            List<ChatCompletionsToolCall> toolCalls = choice.getDelta().getToolCalls();
-            if (toolCalls != null) {
-                ChatCompletionsFunctionToolCall toolCall = (ChatCompletionsFunctionToolCall) toolCalls.get(0);
-                if (toolCall != null) {
-                    functionDetails.getFunctionArguments().append(toolCall.getFunction().getArguments());
-                    if (toolCall.getId() != null) {
-                        functionDetails.setToolID(toolCall.getId());
-                    }
-                    if (toolCall.getFunction().getName() != null) {
-                        functionDetails.setFunctionName(toolCall.getFunction().getName());
-                    }
-                }
-            }
-        });
+        chatCompletionsStream.stream()
+                            .skip(1L)
+                            .forEach(chatCompletions -> {
+                                ChatChoice choice = chatCompletions.getChoices().get(0);
+                                if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+                                    outputData.add(choice.getDelta().getContent());
+                                }
+                                if (choice.getFinishReason() != null) {
+                                    finishReason.set(choice.getFinishReason());
+                                }
+                                List<ChatCompletionsToolCall> toolCalls = choice.getDelta().getToolCalls();
+                                if (toolCalls != null) {
+                                    ChatCompletionsFunctionToolCall toolCall = (ChatCompletionsFunctionToolCall) toolCalls.get(0);
+                                    if (toolCall != null) {
+                                        functionDetails.getFunctionArguments().append(toolCall.getFunction().getArguments());
+                                        if (toolCall.getId() != null) {
+                                            functionDetails.setToolID(toolCall.getId());
+                                        }
+                                        if (toolCall.getFunction().getName() != null) {
+                                            functionDetails.setFunctionName(toolCall.getFunction().getName());
+                                        }
+                                    }
+                                }});
         List<ChatRequestMessage> followUpMessages = new ArrayList<>(messages);
-        Object functionCallResult = null;
         if (finishReason.get() == CompletionsFinishReason.TOOL_CALLS) {
             return Flux.fromStream(movieService.executeFunctionTools(userIp, functionDetails, logs, followUpMessages, additionalMessages, question, outputData))
                     .doAfterTerminate(() -> {
                         persistMessages(userIp, outputData, additionalMessages, logs);
-                    }).onErrorResume(e -> {
-                        return Mono.just("Error " + e.getMessage());
-                    });
+                    }).onErrorResume(e -> Mono.just("Error " + e.getMessage()));
         } else if (finishReason.get() == CompletionsFinishReason.CONTENT_FILTERED) {
             return Flux.just("", "The response was filtered due to the prompt triggering Azure OpenAI's content management policy. Please modify your prompt and retry.");
         } else if (messages.size() == 2) {
@@ -134,9 +132,7 @@ public class AzureChatService {
         }
         return Flux.fromIterable(outputData)
                 .onErrorResume(e -> Mono.just("Error " + e.getMessage()))
-                .doAfterTerminate(() -> {
-                    persistMessages(userIp, outputData, additionalMessages, logs);
-                });
+                .doAfterTerminate(() -> persistMessages(userIp, outputData, additionalMessages, logs));
     }
 
 
@@ -147,8 +143,6 @@ public class AzureChatService {
         persistMessagesService.persistMessages(additionalMessages, userIp);
         persistMessagesService.persistLogs(logs, userIp);
     }
-
-
 
     private Flux<String> getHelpCommands(String question) {
         if (question.equalsIgnoreCase("HELP")) {

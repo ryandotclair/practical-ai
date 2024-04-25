@@ -36,9 +36,6 @@ public class MovieFunctionService {
     @Value("classpath:/prompts/one-shot-prompt.st")
     private Resource oneShotPromptResource;
 
-    @Value("classpath:/prompts/tree-of-thought-prompt.st")
-    private Resource treeOfThoughtPromptResource;
-
     @Autowired
     public MovieFunctionService(@Qualifier("movieList") MovieFunction movieList,
                                 @Qualifier("movieRecommendations") MovieFunction movieRecommendation,
@@ -113,7 +110,6 @@ public class MovieFunctionService {
         ChatRequestUserMessage chatRequestEnhancedUserMessage = new ChatRequestUserMessage(oneShotPrompt.getContents());
         List<ChatRequestMessage> copyConversationMessages = new ArrayList<>(followUpMessages);
         copyConversationMessages.add(chatRequestEnhancedUserMessage);
-        //followUpMessages.add(chatRequestEnhancedUserMessage);
         logs.add("Creating one-shot Prompt: ***" + oneShotPrompt.getContents() + "***");
         IterableStream<ChatCompletions> enhancedPromptCompletionStream = openAIClient.getChatCompletionsStream(
                 deploymentOrModelId, new ChatCompletionsOptions(copyConversationMessages));
@@ -134,23 +130,21 @@ public class MovieFunctionService {
         ChatCompletionMessage userMessage = new ChatCompletionMessage(ChatCompletionMessage.Role.USER, prompt);
         additionalMessages.add(userMessage);
         logs.add("The Embedding model used to search the user query: ***text-embedding-ada-002***");
-        PromptTemplate promptTemplate = new PromptTemplate(formatPrompt);
-        Prompt formattedPrompt = promptTemplate.create();
-        ChatRequestUserMessage formattedUserMessage = new ChatRequestUserMessage(formattedPrompt.getContents());
+        String formattedPrompt = "Ensure the returned list of movies is in a numbered list format, with both movie title and rating in the same line, and in preceding sub-bullets include genre and overview for that movie. NEVER truncate the results and list every movie. Example output you should use:\n 1. ***{original_title}*** - **Rating** {avg_vote} \n  * **Genres**: {genres} \n * **Overview**: {overview}\n";
+        ChatRequestUserMessage formattedUserMessage = new ChatRequestUserMessage(formattedPrompt);
         followUpMessages.add(formattedUserMessage);
-        logs.add("Added formatting to the conversation: **"+formattedPrompt.getContents());
+        logs.add("Added formatting to the conversation: **"+formattedPrompt);
         return prompt;
     }
 
     private void augmentMovieListPrompts(List<ChatRequestMessage> followUpMessages, List<String> logs, List<ChatCompletionMessage> additionalMessages) {
-        PromptTemplate treeOfThoughtPromptTemplate = new PromptTemplate(treeOfThoughtPromptResource);
-        Prompt treeOfThoughtPrompt = treeOfThoughtPromptTemplate.create();
-        ChatRequestUserMessage chatRequestUserMessage = new ChatRequestUserMessage(treeOfThoughtPrompt.getContents());
+        String treeOfThoughtPrompt = "Imagine three brilliant, logical experts collaboratively answering the above question. Each one verbosely explains their thought process in real-time, considering the prior explanations of others and openly acknowledging mistakes. At each step, whenever possible, each expert refines and builds upon the thoughts of others, acknowledging their contributions. They continue until there is a definitive answer to the question. The final agreed upon answer should be given in a markdown numbered list format, in the format of ***{original_title}*** - ***Release Date***: {release_date} - ***Rating***:{avg_vote}. As a sub-bullet include ***Overview***: {overview}. IGNORE the {poster_path}. NEVER truncate the results. List every movie in the markdown format.";
+        ChatRequestUserMessage chatRequestUserMessage = new ChatRequestUserMessage(treeOfThoughtPrompt);
         followUpMessages.add(chatRequestUserMessage);
         logs.add("Prompt Engineering strategy used: ***Tree of Thought***");
-        logs.add("Augmented Prompt: ***" + treeOfThoughtPrompt.getContents() + "***");
+        logs.add("Augmented Prompt: ***" + treeOfThoughtPrompt + "***");
         // Continue to maintain chatCompletionMessages
-        ChatCompletionMessage userMessage = new ChatCompletionMessage(ChatCompletionMessage.Role.USER, treeOfThoughtPrompt.getContents());
+        ChatCompletionMessage userMessage = new ChatCompletionMessage(ChatCompletionMessage.Role.USER, treeOfThoughtPrompt);
         additionalMessages.add(userMessage);
     }
 
