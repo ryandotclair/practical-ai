@@ -15,17 +15,6 @@ Run:
 ```
 > Tip: If you have multiple subscriptions, you can change via `az account set --subscription <subscriptionID>` command.
 
-## Install the Spring extension
-Next, add in the Azure Spring Apps extension by running:
-```
-    az extension add --name spring
-```
-
-If it says you already have it, update it by running:
-```
-    az extension update --name spring
-```
-
 ## Copy the Code
 A zip file should have been generated from the App Accelerator. You'll want to unpack it where the CLI tool is installed and make sure it's in the right directory (aka folder). To get it into Azure's [console](https://portal.azure.com/#cloudshell/), click on the icon that looks like a page with bidirectional arrows and upload the `practical-ai.zip`. By default it will land in your home directory (/home/<username>). Run the following commands:
 

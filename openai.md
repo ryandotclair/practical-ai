@@ -1,27 +1,40 @@
 
 # Azure OpenAI
 
-This section covers:
-- Why Azure's OpenAI
-- How to provision
-- How to get access
+The [Azure OpenAI Service](https://learn.microsoft.com/en-us/azure/ai-services/openai/) provides access to OpenAI's models including the GPT-4, GPT-4 Turbo with Vision, GPT-3.5-Turbo, DALLE-3 and Embeddings model series with the security and enterprise capabilities of Azure.
 
+This is the "brains" of Vee.
 
-## The Why
+# Deploying OpenAI
+1. Run the following command to create an Azure OpenAI resource in the practical-[tmdbapi] resource group.
 
-If you've seen ChatGPT in action, then you'll know the power of using OpenAI's models. What Azure brings to the table is a number of benefits to you:
+   ```bash
+   az cognitiveservices account create \
+      -n practical-[tmdbapi] \
+      -g practical-ai \
+      -l eastus \
+      --kind OpenAI \
+      --sku s0 \
+      --custom-domain practical-[tmdbapi]
+   ```
 
-- Your own private instance of the models, so there's no chance of your private data leaking to other users.
-- Safety [filters](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/content-filter?tabs=warning%2Cpython) that protect not only the prompt going in but also the model's response back to the user.
-- Additional protections like anti-Jailbreaking, anti-copyright material, and licensed code
-- Block lists, quotas, and more!
+1. Create the model deployments for `text-embedding-ada-002` and `gpt-35-turbo` in your Azure OpenAI service.
+   ```bash
+   az cognitiveservices account deployment create \
+      -g practical-ai \
+      -n practical-[tmdbapi] \
+      --deployment-name text-embedding-ada-002 \
+      --model-name text-embedding-ada-002 \
+      --model-version "2"  \
+      --model-format OpenAI
 
-## Provisioning Your First Model
+   az cognitiveservices account deployment create \
+      -g practical-ai \
+      -n practical-[tmdbapi] \
+      --deployment-name gpt-35-turbo \
+      --model-name gpt-35-turbo \
+      --model-version "0301"  \
+      --model-format OpenAI
+   ```
 
-In the Azure Portal ([portal.azure.com](portal.azure.com)), in the search box at the top, search for `Azure OpenAI` and select the service.
-
-Next, hit the `+ Create` button towards the top left of the the screen.
-
-Use the following values:
-- *Resource Group* = `practical-ai`
-
+   

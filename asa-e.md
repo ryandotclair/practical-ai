@@ -8,7 +8,7 @@ Azure Spring Apps Enterprise is a fully managed App Platform, that's Spring awar
 - Long term extended support for Spring workloads deployed on it, across 50 Spring projects, including Spring Boot (for those still on 2.7, we [support](https://spring.io/projects/spring-boot#support) it until August 24th, 2025) in addition to OpenJDK/Tomcat, as well as phone a friend support... said friend is part of the team that maintains Spring.
 - A fully managed API router for advance traffic shaping
 
-TLDR; You focus on your code, Microsoft manages everything for you, and it's all powered (and supported) by Tanzu at Broadcom (artisit formally known as VMware).
+TLDR; You focus on your code, Microsoft manages everything for you, and it's all powered (and supported) by VMware Tanzu.
 
 
 For purpose of this guide, we will assume you've created a RG called `practical-ai`.
@@ -22,7 +22,7 @@ az extension add --name spring
 ```
 > Note: If it mentions it's already installed, you can ensure you're on the latest version with the command `az extension update -n spring`
 
-Accept the legal terms and privacy statements for the Enterprise tier.
+Accept the legal terms for the Enterprise tier.
 
 ```bash
 az provider register --namespace Microsoft.SaaS
@@ -36,5 +36,5 @@ az spring create --name practical-[tmdbapi] \
     --location eastus \
     --sku Enterprise
 ```
-The above command usually takes about 8 minutes. If you've got other infrastructure to deploy, feel free to move on to those in this guide. Otherwise grab a cup of cofee or tea!
+The above command usually takes about 8min. If you've got other infrastructure to deploy, feel free to move on to those in this guide. Otherwise grab a cup of cofee or tea.
 
