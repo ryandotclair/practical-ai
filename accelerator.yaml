@@ -40,6 +40,7 @@ engine:
       type: Combo
       onConflict: Append
       merge:
+      - include: ['**/*.java','**/*.ts','**/*.tsx','**/*.xml','**/*.json','**/*.properties','**/*.css','**/*.cmd','**/mvnw']
       - include: [ "lab.md" ]
         chain:
         - type: ReplaceText
