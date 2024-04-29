@@ -5,9 +5,7 @@ import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
 import com.azure.spring.movee.vectorstore.DocumentIndexPlanner;
 import org.springframework.ai.embedding.EmbeddingClient;
-import org.springframework.ai.vectorstore.RedisVectorStore;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +13,6 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.web.socket.client.standard.WebSocketContainerFactoryBean;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 @Configuration
@@ -66,19 +63,6 @@ public class Config {
         container.setMaxTextMessageBufferSize(32768);
         container.setMaxBinaryMessageBufferSize(32768);
         return container;
-    }
-
-    @Bean
-    public VectorStore vectorStore(EmbeddingClient embeddingClient) {
-        RedisVectorStore.RedisVectorStoreConfig config = RedisVectorStore.RedisVectorStoreConfig.builder()
-                .withURI("redis://localhost:6379")
-                // Define the metadata fields to be used
-                // in the similarity search filters.
-                .withMetadataFields(
-                        RedisVectorStore.MetadataField.tag("movieName"))
-                .build();
-
-        return new RedisVectorStore(config, embeddingClient);
     }
 
 }

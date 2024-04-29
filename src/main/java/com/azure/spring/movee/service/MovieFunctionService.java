@@ -104,7 +104,6 @@ public class MovieFunctionService {
     }
 
     private String augmentMovieRecommendationPrompts(List<ChatRequestMessage> followUpMessages, List<String> logs, List<ChatCompletionMessage> additionalMessages) {
-        String question;
         PromptTemplate oneShotPromptTemplate = new PromptTemplate(oneShotPromptResource);
         Prompt oneShotPrompt = oneShotPromptTemplate.create();
         ChatRequestUserMessage chatRequestEnhancedUserMessage = new ChatRequestUserMessage(oneShotPrompt.getContents());
