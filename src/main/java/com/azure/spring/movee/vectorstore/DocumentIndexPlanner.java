@@ -1,8 +1,8 @@
 package com.azure.spring.movee.vectorstore;
 
-import com.azure.spring.movee.reader.JsonReader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.reader.JsonReader;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.core.io.Resource;
 
