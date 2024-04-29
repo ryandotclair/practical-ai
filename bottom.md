@@ -17,10 +17,11 @@ az configure --defaults \
     spring=pracitcal-[tmdbapi]
 ```
 
-The last pre-req is grabbing the key to your OpenAI model and storing it into an environment variable called AZURE_OPENAI_APIKEY.
+The last pre-req is grabbing the keys to your OpenAI model and Redis instance so we can pass them into the App. We'll do this by storing them into some environment variables.
 ```bash
 
-AZURE_OPENAI_APIKEY=$(az cognitiveservices account keys list -n tanzu-gpt-4 --query key1 -o tsv)
+AZURE_OPENAI_APIKEY=$(az cognitiveservices account keys list -n practical-[tmdbapi] --query key1 -o tsv)
+AZURE_REDIS_KEY=$(az redis list-keys -n practical-[tmdbapi] --query primaryKey -o tsv)
 
 ```
 
@@ -54,7 +55,9 @@ az spring app deployment create \
     --env AZURE_OPENAI_ENDPOINT="https://pracitcal-[tmdbapi].openai.azure.com/" \
     --env AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
     --env AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
-    --env AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002
+    --env AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
+    --env AZURE_REDIS_URL="pracitcal-[tmdbapi].redis.cache.windows.net" \
+    --env AZURE_REDIS_KEY=$AZURE_REDIS_KEY
 ```
 Now the magic happens! What's you're seeing is the code in this folder is being sent to a robot called Tanzu Build Service. It's scaning the source code, figuring out that it's a Spring app, building it into a jar file for you (optionally you can just send it the jar file), along with all the app's dependencies, and creating a highly secured container--using all the best practices and the latest fully patched image--and will deploy it for you into Azure in a rolling fashion.
 

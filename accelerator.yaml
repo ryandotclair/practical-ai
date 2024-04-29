@@ -13,7 +13,7 @@ accelerator:
     required: true
   - name: tmdbapi
     label: "Enter the TMDB API token:"
-    description: "You can obtained TMDB API token here: https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start)"
+    description: "You can obtained TMDB API token here: https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start"
     display: true
     required: true
   - name: explainer
