@@ -100,7 +100,7 @@ public class MovieFunctionService {
         if (functionCall.getName().equals("getMovieList")) {
             return movieList.execute(functionCall, null, logs);
         }
-        return movieRecommendation.execute(null, question, logs);
+        return movieRecommendation.execute(functionCall, null, logs);
     }
 
     private String augmentMovieRecommendationPrompts(List<ChatRequestMessage> followUpMessages, List<String> logs, List<ChatCompletionMessage> additionalMessages) {
