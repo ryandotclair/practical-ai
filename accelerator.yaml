@@ -13,7 +13,7 @@ accelerator:
     required: true
   - name: tmdbapi
     label: "Enter the TMDB API token:"
-    description: "You can obtained TMDB API token here: https://developer.themoviedb.org/reference/intro/authentication#api-key-quick-start"
+    description: "You can obtained a read-only TMDB API token here: https://www.themoviedb.org/settings/api/request"
     display: true
     required: true
   - name: explainer
@@ -50,7 +50,7 @@ engine:
         - type: ReplaceText
           substitutions:
           - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            with: "#tmdbapi.substring(0, 10).toLowerCase()"
       - include: [ "azure.md" ]
         condition: "#explainer.contains('azure')"
         chain:
@@ -67,7 +67,7 @@ engine:
         - type: ReplaceText
           substitutions:
           - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            with: "#tmdbapi.substring(0, 10).toLowerCase()"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "redis.md" ]
@@ -76,7 +76,7 @@ engine:
         - type: ReplaceText
           substitutions:
           - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            with: "#tmdbapi.substring(0, 10).toLowerCase()"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "openai.md" ]
@@ -85,7 +85,7 @@ engine:
         - type: ReplaceText
           substitutions:
           - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            with: "#tmdbapi.substring(0, 10).toLowerCase()"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "bottom.md" ]
@@ -97,6 +97,6 @@ engine:
         - type: ReplaceText
           substitutions:
           - text: "[tmdbapi]"
-            with: "#tmdbapi.substring(0, 10)"
+            with: "#tmdbapi.substring(0, 10).toLowerCase()"
         - type: RewritePath
           rewriteTo: "'lab.md'"
