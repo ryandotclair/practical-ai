@@ -33,7 +33,7 @@ This is the "brains" of Vee.
       -n practical-[tmdbapi] \
       --deployment-name gpt-35-turbo-16k \
       --model-name gpt-35-turbo-16k \
-      --model-version "0301"  \
+      --model-version "0613"  \
       --model-format OpenAI
    ```
 
