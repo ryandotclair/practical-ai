@@ -71,7 +71,7 @@ This command typically takes ~4min (depends on the type of app). Breaking this c
 Once it's done, if you go back to the url (https://practical-[tmdbapi]-vee.azuremicroservices.io) you'll note that nothing has changed. And that's because our app has been deployed into staging (`v1`). You could validate it by either going into the Azure Spring Apps Enteprise Azure portal UI and clicking on the movee app / Deployments / and selecting the staging link (it's not public, hidden by a login), but let's just YOLO it and promote it to production!
 
 ```bash
-az spring app set-deployment -n movee -d v1
+az spring app set-deployment -n movee -d version1
 ```
 Go ahead and hit refresh in the browser, and you should see it eventually change from the default app screen to Vee. The beauty of this is it's effectively just a network change to promote it into production (zero downtime).
 
