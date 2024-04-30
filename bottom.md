@@ -43,7 +43,7 @@ Go to your app now (if you've followed along with this guide, your url should be
 
 You'll see the "default" deployment that comes out of the box when you create a new app. The benefit of this is having a quick smoke test on whether the infra is up and running or not (read: networking issues). Nifty!
 
-Next, let's build the app into a jar file.
+Next, let's build the app into a jar file (takes about 1min for the first build).
 
 ```bash
 ./mvnw clean package -Pproduction
@@ -57,11 +57,11 @@ az spring app deployment create \
     --app movee \
     --build-env BP_JVM_VERSION=17 \
     --artifact-path target/spring-ai-azure-movee-0.0.1-SNAPSHOT.jar \
-    --env AZURE_OPENAI_ENDPOINT="https://pracitcal-eyJhbGciOi.openai.azure.com/" \
+    --env AZURE_OPENAI_ENDPOINT="https://practical-eyJhbGciOi.openai.azure.com/" \
     AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
     AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
     AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
-    AZURE_REDIS_URL="pracitcal-eyJhbGciOi.redis.cache.windows.net" \
+    AZURE_REDIS_URL="practical-eyJhbGciOi.redis.cache.windows.net" \
     AZURE_REDIS_KEY=$AZURE_REDIS_KEY \
     TMDB_API_AUTH_TOKEN="[tmdbapitoken]"
 ```
@@ -80,7 +80,10 @@ Once it's done, if you go back to the url (https://practical-[tmdbapi]-vee.azure
 ```bash
 az spring app set-deployment -n movee -d version1
 ```
+
 Go ahead and hit refresh in the browser, and you should see it eventually change from the default app screen to Vee. The beauty of this is it's effectively just a network change to promote it into production (zero downtime).
+
+> Pro Tip: Let's say you made a mistake, and need to rollback production. Just run `az spring app set-deployment -n movee -d default` and no one is the wiser!
 
 If you wanted to use some more advance traffic shaping patterns (A/B testing, canary deployments, experimental deployments using % based traffic, etc), Azure Spring Apps Enterprise comes with a fully managed API router called Spring Cloud Gateway that allows you to do some more advance promotions, in addition to adding SSO for your end users, and (among other things) header manipulations.
 
