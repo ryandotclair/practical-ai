@@ -43,14 +43,20 @@ Go to your app now (if you've followed along with this guide, your url should be
 
 You'll see the "default" deployment that comes out of the box when you create a new app. The benefit of this is having a quick smoke test on whether the infra is up and running or not (read: networking issues). Nifty!
 
-Now all the commands you've ran so far are typically done once. What you're likely to do over and over again is actually deploying your application (movee). While we could just override the default deployment with a `az spring app deploy` command, we'll use the `deployment create` command to walk you through the promotion feature. Ensure you are in the same folder/directory as this `lab.md` file is and run...
+Next, let's build the app into a jar file.
+
+```bash
+./mvnw clean package -Pproduction
+```
+
+Now all the az commands you've ran so far are typically done once. What you're likely to do over and over again is actually deploying your application (movee). While we could just override the default deployment with a `az spring app deploy` command, we'll use the `deployment create` command to walk you through the promotion feature. Ensure you are in the same folder/directory as this `lab.md` file is and run...
 
 ```bash
 az spring app deployment create \
     -n version1 \
     --app movee \
     --build-env BP_JVM_VERSION=17 \
-    --source-path . \
+    --artifact-path target/spring-ai-azure-movee-0.0.1-SNAPSHOT.jar \
     --env AZURE_OPENAI_ENDPOINT="https://pracitcal-eyJhbGciOi.openai.azure.com/" \
     AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
     AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
