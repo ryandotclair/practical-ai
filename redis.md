@@ -16,4 +16,6 @@ This service is used to hold the conversation history and the "behind the scenes
       --vm-size "c0"
    ```
 
+Note: This takes about 14 minutes so feel free to go grab a cup of coffee.
+
    

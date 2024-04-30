@@ -77,7 +77,12 @@ This command typically takes ~4min (depends on the type of app). Breaking this c
 - `--build-env BP_JVM_VERSION=17`, here we're giving an example of how you can tell the Tanzu Build Service that we want to specifically use Java 17.
 - `-e `, Lastly, we're passing in the various environment variables that the Vee expects to exist at runtime.
 
-Once it's done, if you go back to the url (https://practical-[tmdbapi]-vee.azuremicroservices.io) you'll note that nothing has changed. And that's because our app has been deployed into staging (`v1`). You could validate it by either going into the Azure Spring Apps Enteprise Azure portal UI and clicking on the movee app / Deployments / and selecting the staging link (it's not public, hidden by a login), but let's just YOLO it and promote it to production!
+> Pro Tip: If you run into this error `The build movee-default cannot be created as the builder default is in Creating state. Please wait for the builder to succeed.` this is due to the platform not being fully ready post-creation. You can monitor the readiness state of the builder using the below command (wait until you see the status `Succeeded` before trying again)
+> ```bash
+> az spring build-service builder show -n default --query properties.provisioningState
+> ```
+
+Once the deployment is done, if you go back to the url (https://practical-[tmdbapi]-vee.azuremicroservices.io) you'll note that nothing has changed. And that's because our app has been deployed into staging (`version1`). You could validate it by either going into the Azure Spring Apps Enteprise Azure portal UI and clicking on the movee app / Deployments / and selecting the staging link (it's not public, hidden by a login), but let's just YOLO it and promote it to production!
 
 ```bash
 az spring app set-deployment -n movee -d version1
