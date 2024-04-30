@@ -51,7 +51,6 @@ az spring app deployment create \
     --app movee \
     --build-env BP_JVM_VERSION=17 \
     --source-path . \
-    --runtime-version Java_17 \
     --env AZURE_OPENAI_ENDPOINT="https://pracitcal-eyJhbGciOi.openai.azure.com/" \
     AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
     AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
