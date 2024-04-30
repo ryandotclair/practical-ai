@@ -52,12 +52,12 @@ az spring app deployment create \
     --build-env BP_JVM_VERSION=17 \
     --source-path . \
     --runtime-version Java_17 \
-    --env AZURE_OPENAI_ENDPOINT="https://pracitcal-[tmdbapi].openai.azure.com/" \
-    --env AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
-    --env AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
-    --env AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
-    --env AZURE_REDIS_URL="pracitcal-[tmdbapi].redis.cache.windows.net" \
-    --env AZURE_REDIS_KEY=$AZURE_REDIS_KEY
+    --env AZURE_OPENAI_ENDPOINT="https://pracitcal-eyJhbGciOi.openai.azure.com/" \
+    AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
+    AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
+    AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
+    AZURE_REDIS_URL="pracitcal-eyJhbGciOi.redis.cache.windows.net" \
+    AZURE_REDIS_KEY=$AZURE_REDIS_KEY
 ```
 Now the magic happens! What's you're seeing is the code in this folder is being sent to a robot called Tanzu Build Service. It's scaning the source code, figuring out that it's a Spring app, building it into a jar file for you (optionally you can just send it the jar file), along with all the app's dependencies, and creating a highly secured container--using all the best practices and the latest fully patched image--and will deploy it for you into Azure in a rolling fashion.
 
