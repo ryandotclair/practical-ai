@@ -97,7 +97,7 @@ public class MovieFunctionService {
 
     public Object executeFunction(ChatFunctionDetails chatFunctionDetails, String question, List<String> logs) {
         FunctionCall functionCall = new FunctionCall(chatFunctionDetails.getFunctionName(), chatFunctionDetails.getFunctionArguments().toString());
-        if(functionCall.getName().equals("getMovieList")) {
+        if (functionCall.getName().equals("getMovieList")) {
             return movieList.execute(functionCall, null, logs);
         }
         return movieRecommendation.execute(null, question, logs);

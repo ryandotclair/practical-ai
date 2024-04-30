@@ -78,6 +78,7 @@ public class AzureChatService {
             additionalMessages.add(augmentedUserMessage);
         } else {
             logs.add("Sending model the prompt: ***" + question + "***");
+            question = question +"Don’t justify your answers. Don’t give information not mentioned in the CONTEXT INFORMATION";
         }
         logs.add("Azure OpenAI is using chat deployment model: ***" + deploymentOrModelId + "***");
         List<ChatRequestMessage> messages = additionalMessages.stream().map(ChatMessageAdapter::from).toList();

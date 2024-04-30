@@ -8,6 +8,7 @@ import com.azure.spring.movee.model.MovieParameters;
 import com.azure.spring.movee.model.MoviesLocation;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ import java.util.List;
 public class MovieListFunction implements MovieFunction {
 
     private final WebClient webClient;
+
+    @Value("${tmdb.api.auth.token}")
+    private String apiAuthToken;
 
     public MovieListFunction(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("https://api.themoviedb.org").build();
@@ -49,7 +53,7 @@ public class MovieListFunction implements MovieFunction {
         return webClient.get()
                 .uri("/3/discover/movie?with_origin_country="+shortName+"&region="+shortName+"&include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&primary_release_date.gte="+weekBeforeDate+"&primary_release_date.lte="+movieLocation.getDate())
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTk1OGZhZDAyM2Y0YzU2YWQ1ODliZjZmYTUzNDc4YSIsInN1YiI6IjY1NjZiN2IyODlkOTdmMDBmZTdjN2Q1NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MzwQ2Z0EOv-nIrCQeUBV_d4kl-lo8HCDNbIDEcBKisY")
+                .header("Authorization", "Bearer "+ apiAuthToken)
                 .retrieve()
                 .bodyToFlux(LinkedHashMap.class)
                 .map(t -> {

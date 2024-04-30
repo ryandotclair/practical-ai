@@ -37,7 +37,7 @@ export default function BehindTheCurtain() {
         <>
             <div>
                 <h2 className="text-l text-center m-0">
-                    <p>Behind the curtain</p>
+                    <p>Behind the Scene</p>
                 </h2>
                  <ReactMarkdown children={messages? messages: ""} rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }]]} />
                </div>
