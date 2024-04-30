@@ -82,7 +82,7 @@ This command typically takes ~4min (depends on the type of app). Breaking this c
 > az spring build-service builder show -n default --query properties.provisioningState
 > ```
 
-Once the deployment is done, if you go back to the url (https://practical-[tmdbapi]-vee.azuremicroservices.io) you'll note that nothing has changed. And that's because our app has been deployed into staging (`version1`). You could validate it by either going into the Azure Spring Apps Enteprise Azure portal UI and clicking on the movee app / Deployments / and selecting the staging link (it's not public, hidden by a login), but let's just YOLO it and promote it to production!
+Once the deployment is done, if you go back to the url (https://practical-[tmdbapi]-vee.azuremicroservices.io) you'll note that nothing has changed. And that's because our app has been deployed into staging (`version1`). You could validate it by either going into the Azure Spring Apps Enteprise Azure portal UI and clicking on the movee app / Deployments / and selecting the staging link (it's not public, hidden by a login), but let's just YOLO it and set the version to production!
 
 ```bash
 az spring app set-deployment -n movee -d version1
@@ -94,11 +94,6 @@ Go ahead and hit refresh in the browser, and you should see it eventually change
 
 If you wanted to use some more advance traffic shaping patterns (A/B testing, canary deployments, experimental deployments using % based traffic, etc), Azure Spring Apps Enterprise comes with a fully managed API router called Spring Cloud Gateway that allows you to do some more advance promotions, in addition to adding SSO for your end users, and (among other things) header manipulations.
 
-The last step is to initialize the embeddings in the Spring AI in-memory vectorDB store with a simple curl statement. This should take less than 60 seconds to finish.
-
-```bash
-curl --location --request POST 'https://practical-[tmdbapi]-movee.azuremicroservices.io/actuator/store-embeddings'
-```
 
 # Cleaning Up
 
