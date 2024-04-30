@@ -90,7 +90,7 @@ If you wanted to use some more advance traffic shaping patterns (A/B testing, ca
 The last step is to initialize the embeddings in the Spring AI in-memory vectorDB store with a simple curl statement. This should take less than 60 seconds to finish.
 
 ```bash
-curl --location --request POST 'https://practical-[tmdbapi].azuremicroservices.io/actuator/store-embeddings'
+curl --location --request POST 'https://practical-[tmdbapi]-movee.azuremicroservices.io/actuator/store-embeddings'
 ```
 
 # Cleaning Up
