@@ -63,7 +63,7 @@ Now the magic happens! What's you're seeing is the code in this folder is being 
 
 This command typically takes ~4min (depends on the type of app). Breaking this command down:
 - `deployment create`, Azure Spring Apps supports up to two deployments. The deployment named `default` is the out of the box one that's automatically created for you. This is how we create a new one, and by default this new deployment is put into staging. Worth noting that this command is idepotent.
-- `-n v1`, we're naming the deployment's name `v1`
+- `-n version1`, we're naming the deployment's name `v1`
 - `--app movee`, this is telling it to create the new deployment named v1 under the vee app.
 - `--source-path .`, here we are asking it to take all the source code in the current working directory (aka `.` aka folder) and send it to Azure Spring Apps. An alternative option is `--artifact-path <jar, war, netcore zip file>`
 - `--build-env BP_JVM_VERSION=17`, here we're giving an example of how you can tell the Tanzu Build Service that we want to specifically use Java 17.
