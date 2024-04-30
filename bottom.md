@@ -47,7 +47,7 @@ Now all the commands you've ran so far are typically done once. What you're like
 
 ```bash
 az spring app deployment create \
-    -n v1 \
+    -n version1 \
     --app movee \
     --build-env BP_JVM_VERSION=17 \
     --source-path . \
