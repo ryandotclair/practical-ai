@@ -57,11 +57,11 @@ az spring app deployment create \
     --app movee \
     --build-env BP_JVM_VERSION=17 \
     --artifact-path target/spring-ai-azure-movee-0.0.1-SNAPSHOT.jar \
-    --env AZURE_OPENAI_ENDPOINT="https://practical-eyJhbGciOi.openai.azure.com/" \
+    --env AZURE_OPENAI_ENDPOINT="https://practical-[tmdbapi].openai.azure.com/" \
     AZURE_OPENAI_APIKEY=$AZURE_OPENAI_APIKEY \
     AZURE_OPENAI_CHATDEPLOYMENTID=gpt-35-turbo \
     AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
-    AZURE_REDIS_URL="practical-eyJhbGciOi.redis.cache.windows.net" \
+    AZURE_REDIS_URL="practical-[tmdbapi].redis.cache.windows.net" \
     AZURE_REDIS_KEY=$AZURE_REDIS_KEY \
     TMDB_API_AUTH_TOKEN="[tmdbapitoken]"
 ```
