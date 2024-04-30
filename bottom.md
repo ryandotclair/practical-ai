@@ -5,6 +5,8 @@ Assuming you have created the below resources into US East:
 ```
 Resource Group: practical-ai
  |_OpenAI: practical-[tmdbapi]
+   |_Deployment: text-embedding-ada-002
+   |_Deployment: gpt-35-turbo-16k
  |_Redis: practical-[tmdbapi]
  |_ASA_E: practical-[tmdbapi]
 ```
