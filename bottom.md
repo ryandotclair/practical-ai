@@ -14,7 +14,7 @@ And you've set the below defaults into your trusty az CLI tool:
 az configure --defaults \
     group=practical-ai \
     location=eastus \
-    spring=pracitcal-[tmdbapi]
+    spring=practical-[tmdbapi]
 ```
 
 The last pre-req is grabbing the keys to your OpenAI model and Redis instance so we can pass them into the App. We'll do this by storing them into some environment variables.
