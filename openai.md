@@ -18,7 +18,7 @@ This is the "brains" of Vee.
       --custom-domain practical-[tmdbapi]
    ```
 
-1. Create the model deployments for `text-embedding-ada-002` and `gpt-35-turbo` in your Azure OpenAI service.
+1. Create the model deployments for `text-embedding-ada-002` and `gpt-35-turbo-16k` in your Azure OpenAI service.
    ```bash
    az cognitiveservices account deployment create \
       -g practical-ai \
@@ -31,8 +31,8 @@ This is the "brains" of Vee.
    az cognitiveservices account deployment create \
       -g practical-ai \
       -n practical-[tmdbapi] \
-      --deployment-name gpt-35-turbo \
-      --model-name gpt-35-turbo \
+      --deployment-name gpt-35-turbo-16k \
+      --model-name gpt-35-turbo-16k \
       --model-version "0301"  \
       --model-format OpenAI
    ```
