@@ -57,6 +57,7 @@ az spring app deployment create \
     AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=text-embedding-ada-002 \
     AZURE_REDIS_URL="pracitcal-eyJhbGciOi.redis.cache.windows.net" \
     AZURE_REDIS_KEY=$AZURE_REDIS_KEY
+    TMDB_API_AUTH_TOKEN=[tmdbapitoken]
 ```
 Now the magic happens! What's you're seeing is the code in this folder is being sent to a robot called Tanzu Build Service. It's scaning the source code, figuring out that it's a Spring app, building it into a jar file for you (optionally you can just send it the jar file), along with all the app's dependencies, and creating a highly secured container--using all the best practices and the latest fully patched image--and will deploy it for you into Azure in a rolling fashion.
 
@@ -75,10 +76,13 @@ az spring app set-deployment -n movee -d version1
 ```
 Go ahead and hit refresh in the browser, and you should see it eventually change from the default app screen to Vee. The beauty of this is it's effectively just a network change to promote it into production (zero downtime).
 
-> Note: Upon Vee's initial spin up, it checks to see if all the necesary embeddings is loaded in Redis. If not, it will load it. Please give Vee a few minutes to prep Redis and be ready.
-
 If you wanted to use some more advance traffic shaping patterns (A/B testing, canary deployments, experimental deployments using % based traffic, etc), Azure Spring Apps Enterprise comes with a fully managed API router called Spring Cloud Gateway that allows you to do some more advance promotions, in addition to adding SSO for your end users, and (among other things) header manipulations.
 
+The last step is to initialize the embeddings in the Spring AI in-memory vectorDB store with a simple curl statement. This should take less than 60 seconds to finish.
+
+```bash
+curl --location --request POST 'https://practical-[tmdbapi].azuremicroservices.io/actuator/store-embeddings'
+```
 
 # Cleaning Up
 

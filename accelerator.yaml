@@ -98,5 +98,9 @@ engine:
           substitutions:
           - text: "[tmdbapi]"
             with: "#tmdbapi.substring(0, 10).toLowerCase()"
+        - type: ReplaceText
+          substitutions:
+          - text: "[tmdbapitoken]"
+            with: "#tmdbapi"
         - type: RewritePath
           rewriteTo: "'lab.md'"
