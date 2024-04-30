@@ -73,11 +73,19 @@ engine:
       - include: [ "redis.md" ]
         condition: "#explainer.contains('redis')"
         chain:
+        - type: ReplaceText
+          substitutions:
+          - text: "[tmdbapi]"
+            with: "#tmdbapi.substring(0, 10)"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "openai.md" ]
         condition: "#explainer.contains('openai')"
         chain:
+        - type: ReplaceText
+          substitutions:
+          - text: "[tmdbapi]"
+            with: "#tmdbapi.substring(0, 10)"
         - type: RewritePath
           rewriteTo: "'lab.md'"
       - include: [ "bottom.md" ]
